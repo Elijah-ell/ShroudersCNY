@@ -1,0 +1,15 @@
+<h1>{{title}}</h1>
+<p>Welcome to {{title}}</p>
+
+
+<div  align = 'center'>
+	<h3>Inside Div</h3>
+	{{# each testers}}
+
+		<div>Tester: {{this.name}}</div>
+		<div>Password: {{this.password}}</div>
+
+	{{/each}}
+
+
+</div>
