@@ -6,7 +6,7 @@ var Product = mongoose.model('Product');
 var Player = mongoose.model('Player');
 var nodemailer = require('nodemailer');
 
-var transporter = nodemailer.createTransport{
+var transporter = nodemailer.createTransport({
     service: 'Gmail',
     tls: {
         rejectUnauthorized:false
@@ -15,7 +15,7 @@ var transporter = nodemailer.createTransport{
     user: 'elijahgsh@gmail.com',
     pass: 'furyoku1350'
   }
-};
+});
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
