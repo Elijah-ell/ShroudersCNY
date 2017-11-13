@@ -4,6 +4,18 @@ var mongoose = require('mongoose');
 var User = mongoose.model('User');
 var Product = mongoose.model('Product');
 var Player = mongoose.model('Player');
+var nodemailer = require('nodemailer');
+
+var transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    tls: {
+        rejectUnauthorized:false
+    },
+  auth: {
+    user: 'elijahgsh@gmail.com',
+    pass: 'furyoku1350'
+  }
+});
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -12,6 +24,33 @@ router.get('/', function(req, res, next) {
 
 router.get('/testform', function(req, res){
 	res.render('testform');
+})
+router.post('/ibm-email', function(req,res,next){
+        if(req.body.emailPost){
+                console.log('req.body is ',req.body)
+
+                var mailOptions = {
+                        from: 'elijahgsh@gmail.com',
+                        to: req.body.emailPost,
+                        subject: 'ibm picture',
+                        attachments: [
+                        {
+                                filename: 'image.png',
+                                path:req.body.imgPost
+                        },
+                        ]
+                };
+        transporter.sendMail(mailOptions, function(error, info){
+                if(error){
+                        console.log(error);
+                }else{
+                        console.log('Email sent: ' + info.response);
+                        res.json({status: "success"})
+                }
+                });
+        } else {
+                res.json({status:"nothing 222"})
+        }
 })
 
 router.post('/create-data', function(req, res, next){
@@ -28,7 +67,25 @@ router.post('/create-data', function(req, res, next){
 	user.save();
 	res.send("success");
 })
+router.post('/create-data2', function(req, res, next){
+	var user = new User({username: req.body.username, password: req.body.password});
 
+	// user.save(function(err, user){
+	// 	//nores.json(user);
+
+	// 	User.find (function (err, model){
+	// 		if(err) return next(err);
+	// 		res.json(model);
+	// 	})
+	// });
+	User.find({username: "tester123"}, function(err, product){
+		if(err) return next(err)
+			res.json(product)
+	})
+
+	user.save();
+	res.send("success");
+})
 
 router.get('/getall-data', function(req, res){
 	// User.find (function (err, model){
@@ -52,7 +109,10 @@ router.get('/get-tomato', function(req, res, next){
 	Product.find({productName: "Tomato Juice"}, function(err, product){
 		if(err) return next(err);
 
-		res.json(product);
+		if(!product.length)
+			res.send("null");
+		else
+			res.send("success");
 	})
 })
 
