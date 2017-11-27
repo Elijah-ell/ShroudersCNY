@@ -12,8 +12,8 @@ var transporter = nodemailer.createTransport({
         rejectUnauthorized:false
     },
   auth: {
-    user: 'magicmirror.cafe@gmail.com',
-    pass: 'mangopudding'
+    user: 'elijahgsh@gmail.com',
+    pass: 'furyoku1350'
   }
 });
 
@@ -30,7 +30,7 @@ router.post('/ibm-email', function(req,res,next){
                 console.log('req.body is ',req.body)
 
                 var mailOptions = {
-                        from: 'magicmirror.cafe@gmail.com',
+                        from: 'elijahgsh@gmail.com',
                         to: req.body.emailPost,
                         subject: 'ibm picture',
                         attachments: [
@@ -147,8 +147,7 @@ router.post('/create-player2', function(req,res,next){
 			if(docs[0].timing > parseInt(req.body.timing)){
 				res.send("edited");
 				Player.find({playername: req.body.playername}).remove().exec();
-				player.save();
-				
+				player.save();	
 			}
 			else{
 				res.send("no edit");
@@ -183,3 +182,4 @@ router.get('/get-data', function(req, res, next){
 })
 
 module.exports = router;
+.exports = router;
