@@ -104,9 +104,25 @@ router.get('/create-product',function(req, res){
 	})
 
 })
+router.get('/create-product2',function(req, res,next){
+	var empty = false;
+	var product = new Product({productName: "Mongo Juice", productId: 1});
+	Product.find({productName: "mango Juice"}).exec(function(err,docs){
+		if(docs.length){
+
+		}
+		else{
+			product.save();
+		}
+	})
+
+		//res.send("NICE ONE");
+	//res.send(JSON.stringify(product));
+	// var product = new Product({productName: "Mango Juice", productId: 1});
+})
 
 router.get('/get-tomato', function(req, res, next){
-	Product.find({productName: "Tomato Juice"}, function(err, product){
+	Product.find({productName: "Orange Juice"}, function(err, product){
 		if(err) return next(err);
 
 		if(!product.length)
@@ -123,8 +139,30 @@ router.post('/create-player', function(req , res, next){
 
 })
 
+router.post('/create-player2', function(req,res,next){
+	
+	var player = new Player({playername: req.body.playername, timing: req.body.timing});
+	Player.find({playername: req.body.playername}).exec(function(err,docs){
+		if(docs.length){
+			if(docs[0].timing > parseInt(req.body.timing)){
+				res.send("edited");
+				Player.find({playername: req.body.playername}).remove().exec();
+				player.save();
+				
+			}
+			else{
+				res.send("no edit");
+			}
+		}	
+		else{
+			player.save();
+		}
+	})
+	//player.save();
+	//res.send("success");
+	
 
-
+})
 
 router.get('/get-data', function(req, res, next){
 	var resultArray = [];
@@ -143,4 +181,5 @@ router.get('/get-data', function(req, res, next){
 
 
 })
+
 module.exports = router;
