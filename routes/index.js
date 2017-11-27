@@ -88,12 +88,13 @@ router.post('/create-data2', function(req, res, next){
 })
 
 router.get('/getall-data', function(req, res){
+
 	// User.find (function (err, model){
 	// 	if(err) return next(err);
 	// 	res.send({"model": model});
 	// })
-	Player.find({}).sort({timing: 'ascending'}).limit(5).exec(function(err, docs) { res.json({"model": docs}); });
-	
+	//Player.find({}).sort({timing: 'ascending'}).limit(5).exec(function(err, docs) { res.json({"model": docs}); });
+	Player.find({}).sort({timing: 'ascending'}).limit(5).exec(function(err, docs) { res.json(docs); });
 })
 
 router.get('/create-product',function(req, res){
