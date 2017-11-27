@@ -12,8 +12,8 @@ var transporter = nodemailer.createTransport({
         rejectUnauthorized:false
     },
   auth: {
-    user: 'elijahgsh@gmail.com',
-    pass: 'furyoku1350'
+    user: 'magicmirror.cafe@gmail.com',
+    pass: 'mangopudding'
   }
 });
 
@@ -30,7 +30,7 @@ router.post('/ibm-email', function(req,res,next){
                 console.log('req.body is ',req.body)
 
                 var mailOptions = {
-                        from: 'elijahgsh@gmail.com',
+                        from: 'magicmirror.cafe@gmail.com',
                         to: req.body.emailPost,
                         subject: 'ibm picture',
                         attachments: [
