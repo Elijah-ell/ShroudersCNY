@@ -182,4 +182,3 @@ router.get('/get-data', function(req, res, next){
 })
 
 module.exports = router;
-.exports = router;
