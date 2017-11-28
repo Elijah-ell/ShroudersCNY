@@ -94,7 +94,7 @@ router.get('/getall-data', function(req, res){
 	// 	res.send({"model": model});
 	// })
 	//Player.find({}).sort({timing: 'ascending'}).limit(5).exec(function(err, docs) { res.json({"model": docs}); });
-	Player.find({}).sort({timing: 'ascending'}).limit(5).exec(function(err, docs) { res.json(docs); });
+	Player.find({}).sort({timing: 'ascending'}).limit(10).exec(function(err, docs) { res.json(docs); });
 })
 
 router.get('/create-product',function(req, res){
