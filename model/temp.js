@@ -6,4 +6,4 @@ var ModelSchema = new mongoose.Schema({
 	timing: Number
 });
 
-mongoose.model("Player", ModelSchema);
+mongoose.model("Temp", ModelSchema);

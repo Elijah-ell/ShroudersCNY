@@ -5,6 +5,7 @@ var User = mongoose.model('User');
 var Product = mongoose.model('Product');
 var Player = mongoose.model('Player');
 var nodemailer = require('nodemailer');
+var Temp = mongoose.model('Temp');
 
 var transporter = nodemailer.createTransport({
     service: 'Gmail',
@@ -141,27 +142,56 @@ router.post('/create-player', function(req , res, next){
 })
 
 router.post('/create-player2', function(req,res,next){
-	
-	var player = new Player({playername: req.body.playername, timing: req.body.timing});
+	if(!req.body.playername.length)
+		return res.redirect('http://www.puppy.dinkevents2.com/leaderboard2.html');
+	if(!req.body.playeremail.length)
+		return res.redirect('http://www.puppy.dinkevents2.com/leaderboard2.html');
+	var player = new Player({playername: req.body.playername, timing: req.body.timing, playeremail: req.body.playeremail});
 	Player.find({playername: req.body.playername}).exec(function(err,docs){
 		if(docs.length){
 			if(docs[0].timing > parseInt(req.body.timing)){
 				res.send("edited");
 				Player.find({playername: req.body.playername}).remove().exec();
 				player.save();	
+				return res.redirect('http://www.puppy.dinkevents2.com/leaderboard2.html');
 			}
 			else{
 				res.send("no edit");
+				return res.redirect('http://www.puppy.dinkevents2.com/leaderboard2.html');
 			}
 		}	
 		else{
 			player.save();
+			return res.redirect('http://www.puppy.dinkevents2.com/leaderboard2.html');
 		}
 	})
 	//player.save();
 	//res.send("success");
 	
 
+})
+router.post('/store-temp',function(req,res, next){
+	var temp = new Temp({playername: "migo", timing: req.body.timing, playeremail: "test@gmail.com"});
+	Temp.find({playername: "migo"}).exec(function(err,docs){
+	if(docs.length){
+		Temp.find({playername: "migo"}).remove().exec();
+		temp.save();
+	}
+	else
+		temp.save();
+	})
+	return res.redirect('http://www.puppy.dinkevents2.com/leaderboard.html');
+	
+})
+router.get('/get-temp', function(req, res, next){
+	Temp.find({playername: "migo"}, function(err, temp){
+		if(err) return next(err);
+
+		if(!temp.length)
+			res.send("null");
+		else
+			res.json(temp);
+	})
 })
 
 router.get('/get-data', function(req, res, next){

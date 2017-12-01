@@ -11,6 +11,7 @@ mongoose.connect(url);
 require('./model/user');
 require('./model/product');
 require('./model/player');
+require('./model/temp');
 var app = express();
 // cross origin middleware
 // Add headers
