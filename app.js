@@ -12,6 +12,9 @@ require('./model/user');
 require('./model/product');
 require('./model/player');
 require('./model/temp');
+require('./model/temp_int');
+require('./model/player-int');
+
 var app = express();
 // cross origin middleware
 // Add headers

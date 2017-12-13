@@ -6,7 +6,7 @@ var Product = mongoose.model('Product');
 var Player = mongoose.model('Player');
 var nodemailer = require('nodemailer');
 var Temp = mongoose.model('Temp');
-
+var Temp_int = mongoose.model('Temp_int');
 var transporter = nodemailer.createTransport({
     service: 'Gmail',
     tls: {
@@ -183,6 +183,19 @@ router.post('/store-temp',function(req,res, next){
 	return res.redirect('http://www.puppy.dinkevents2.com/leaderboard.html');
 	
 })
+router.post('/store-temp-int',function(req,res, next){
+	var temp = new Temp_int({playername: "migo-int", timing: req.body.timing, playeremail: "test@gmail.com"});
+	Temp_int.find({playername: "migo-int"}).exec(function(err,docs){
+	if(docs.length){
+		Temp_int.find({playername: "migo-int"}).remove().exec();
+		temp.save();
+	}
+	else
+		temp.save();
+	})
+	return res.redirect('http://www.puppy.dinkevents2.com/leaderboard.html');
+	
+})
 router.get('/get-temp', function(req, res, next){
 	Temp.find({playername: "migo"}, function(err, temp){
 		if(err) return next(err);
@@ -193,7 +206,16 @@ router.get('/get-temp', function(req, res, next){
 			res.json(temp);
 	})
 })
+router.get('/get-temp-int', function(req, res, next){
+	Temp_int.find({playername: "migo-int"}, function(err, temp){
+		if(err) return next(err);
 
+		if(!temp.length)
+			res.send("null");
+		else
+			res.json(temp);
+	})
+})
 router.get('/get-data', function(req, res, next){
 	var resultArray = [];
 	mongo.connect(url,function(err, db){
