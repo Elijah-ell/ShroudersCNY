@@ -13,7 +13,7 @@ require('./model/product');
 require('./model/player');
 require('./model/temp');
 require('./model/temp_int');
-require('./model/player-int');
+require('./model/player_int');
 
 var app = express();
 // cross origin middleware

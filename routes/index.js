@@ -7,6 +7,8 @@ var Player = mongoose.model('Player');
 var nodemailer = require('nodemailer');
 var Temp = mongoose.model('Temp');
 var Temp_int = mongoose.model('Temp_int');
+var Player_int = mongoose.model('Player_int');
+
 var transporter = nodemailer.createTransport({
     service: 'Gmail',
     tls: {
@@ -97,7 +99,9 @@ router.get('/getall-data', function(req, res){
 	//Player.find({}).sort({timing: 'ascending'}).limit(5).exec(function(err, docs) { res.json({"model": docs}); });
 	Player.find({}).sort({timing: 'ascending'}).limit(10).exec(function(err, docs) { res.json(docs); });
 })
-
+router.get('/getall-data-int', function(req, res){
+	Player_int.find({}).sort({timing: 'ascending'}).limit(10).exec(function(err, docs) { res.json(docs); });
+})
 router.get('/create-product',function(req, res){
 	var product = new Product({productName: "Orange Juice", productId: 1});
 	product.save(function(err, product){
@@ -118,7 +122,7 @@ router.get('/create-product2',function(req, res,next){
 		}
 	})
 
-		//res.send("NICE ONE");
+	//res.send("NICE ONE");
 	//res.send(JSON.stringify(product));
 	// var product = new Product({productName: "Mango Juice", productId: 1});
 })
@@ -152,6 +156,35 @@ router.post('/create-player2', function(req,res,next){
 			if(docs[0].timing > parseInt(req.body.timing)){
 				res.send("edited");
 				Player.find({playername: req.body.playername}).remove().exec();
+				player.save();	
+				return res.redirect('http://www.puppy.dinkevents2.com/leaderboard2.html');
+			}
+			else{
+				res.send("no edit");
+				return res.redirect('http://www.puppy.dinkevents2.com/leaderboard2.html');
+			}
+		}	
+		else{
+			player.save();
+			return res.redirect('http://www.puppy.dinkevents2.com/leaderboard2.html');
+		}
+	})
+	//player.save();
+	//res.send("success");
+	
+
+})
+router.post('/create-player2-int', function(req,res,next){
+	if(!req.body.playername.length)
+		return res.redirect('http://www.puppy.dinkevents2.com/leaderboard2.html');
+	if(!req.body.playeremail.length)
+		return res.redirect('http://www.puppy.dinkevents2.com/leaderboard2.html');
+	var player = new Player_int({playername: req.body.playername, timing: req.body.timing, playeremail: req.body.playeremail});
+	Player_int.find({playername: req.body.playername}).exec(function(err,docs){
+		if(docs.length){
+			if(docs[0].timing > parseInt(req.body.timing)){
+				res.send("edited");
+				Player_int.find({playername: req.body.playername}).remove().exec();
 				player.save();	
 				return res.redirect('http://www.puppy.dinkevents2.com/leaderboard2.html');
 			}
