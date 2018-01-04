@@ -154,7 +154,7 @@ router.post('/create-player2', function(req,res,next){
 	Player.find({playername: req.body.playername}).exec(function(err,docs){
 		if(docs.length){
 			if(docs[0].timing > parseInt(req.body.timing)){
-				res.send("edited");
+				// res.send("edited");
 				Player.find({playername: req.body.playername}).remove().exec();
 				player.save();	
 				return res.redirect('http://www.puppy.dinkevents2.com/leaderboard2.html');
