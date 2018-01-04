@@ -160,7 +160,7 @@ router.post('/create-player2', function(req,res,next){
 				return res.redirect('http://www.puppy.dinkevents2.com/leaderboard2.html');
 			}
 			else{
-				res.send("no edit");
+				//res.send("no edit");
 				return res.redirect('http://www.puppy.dinkevents2.com/leaderboard2.html');
 			}
 		}	
