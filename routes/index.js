@@ -153,7 +153,7 @@ router.post('/create-player2', function(req,res,next){
 	var player = new Player({playername: req.body.playername, timing: req.body.timing, playeremail: req.body.playeremail});
 	Player.find({playername: req.body.playername}).exec(function(err,docs){
 		if(docs.length){
-			if(docs[0].timing > parseInt(req.body.timing)){
+			if(docs[0].timing.localeCompare(req.body.timing) == 1){
 				// res.send("edited");
 				// Player.find({playername: req.body.playername}).remove().exec();
 				// player.save();	
