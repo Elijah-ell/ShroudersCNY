@@ -155,8 +155,21 @@ router.post('/create-player2', function(req,res,next){
 		if(docs.length){
 			if(docs[0].timing > parseInt(req.body.timing)){
 				// res.send("edited");
-				Player.find({playername: req.body.playername}).remove().exec();
-				player.save();	
+				// Player.find({playername: req.body.playername}).remove().exec();
+				// player.save();	
+				Player.findOneAndUpdate(
+					{playername: req.body.playername},
+					{$set:{
+						//todo2 - update the fields to be same as parameter
+						playername: req.body.name,
+						timing: req.body.timing,
+					}},
+					function (err, updatedModel){
+						if(err) return next(err);
+						//res.send(updatedModel);
+					}
+
+				)
 				return res.redirect('http://www.runpuppyrun.sg/game/leaderboard2.html');
 			}
 			else{
