@@ -97,10 +97,10 @@ router.get('/getall-data', function(req, res){
 	// 	res.send({"model": model});
 	// })
 	//Player.find({}).sort({timing: 'ascending'}).limit(5).exec(function(err, docs) { res.json({"model": docs}); });
-	Player.find({}).sort({timing: 'ascending'}).limit(10).exec(function(err, docs) { res.json(docs); });
+	Player.find({}).sort({timing: 'ascending'}).limit(20).exec(function(err, docs) { res.json(docs); });
 })
 router.get('/getall-data-int', function(req, res){
-	Player_int.find({}).sort({timing: 'ascending'}).limit(10).exec(function(err, docs) { res.json(docs); });
+	Player_int.find({}).sort({timing: 'ascending'}).limit(20).exec(function(err, docs) { res.json(docs); });
 })
 router.get('/create-product',function(req, res){
 	var product = new Product({productName: "Orange Juice", productId: 1});
@@ -183,13 +183,13 @@ router.post('/create-player2-int', function(req,res,next){
 	Player_int.find({playername: req.body.playername}).exec(function(err,docs){
 		if(docs.length){
 			if(docs[0].timing > parseInt(req.body.timing)){
-				res.send("edited");
+				//res.send("edited");
 				Player_int.find({playername: req.body.playername}).remove().exec();
 				player.save();	
 				return res.redirect('http://www.runpuppyrun.sg/game/leaderboard2.html');
 			}
 			else{
-				res.send("no edit");
+				//res.send("no edit");
 				return res.redirect('http://www.runpuppyrun.sg/game/leaderboard2.html');
 			}
 		}	
