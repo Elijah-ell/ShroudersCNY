@@ -151,7 +151,7 @@ router.post('/create-player2', function(req,res,next){
 	if(!req.body.playeremail.length)
 		return res.redirect('http://www.runpuppyrun.sg/game/leaderboard2.html');
 	var player = new Player({playername: req.body.playername, timing: req.body.timing, playeremail: req.body.playeremail});
-	Player.find({playername: req.body.playername}).exec(function(err,docs){
+	Player.find({playeremail: req.body.playeremail}).exec(function(err,docs){
 		if(docs.length){
 			if(docs[0].timing.localeCompare(req.body.timing) == 1){
 				// res.send("edited");
@@ -193,7 +193,7 @@ router.post('/create-player2-int', function(req,res,next){
 	if(!req.body.playeremail.length)
 		return res.redirect('http://www.runpuppyrun.sg/game/leaderboard2.html');
 	var player = new Player_int({playername: req.body.playername, timing: req.body.timing, playeremail: req.body.playeremail});
-	Player_int.find({playername: req.body.playername}).exec(function(err,docs){
+	Player_int.find({playeremail: req.body.playeremail}).exec(function(err,docs){
 		if(docs.length){
 			if(docs[0].timing > parseInt(req.body.timing)){
 				//res.send("edited");
