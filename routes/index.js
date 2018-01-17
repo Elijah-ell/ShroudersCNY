@@ -195,10 +195,23 @@ router.post('/create-player2-int', function(req,res,next){
 	var player = new Player_int({playername: req.body.playername, timing: req.body.timing, playeremail: req.body.playeremail});
 	Player_int.find({playeremail: req.body.playeremail}).exec(function(err,docs){
 		if(docs.length){
-			if(docs[0].timing > parseInt(req.body.timing)){
-				//res.send("edited");
-				Player_int.find({playername: req.body.playername}).remove().exec();
-				player.save();	
+			if(docs[0].timing.localeCompare(req.body.timing) == 1){
+				// res.send("edited");
+				// Player.find({playername: req.body.playername}).remove().exec();
+				// player.save();	
+				Player.findOneAndUpdate(
+					{playername: req.body.playername},
+					{$set:{
+						//todo2 - update the fields to be same as parameter
+						playername: req.body.playername,
+						timing: req.body.timing,
+					}},
+					function (err, updatedModel){
+						if(err) return next(err);
+						//res.send(updatedModel);
+					}
+
+				)
 				return res.redirect('http://www.runpuppyrun.sg/game/leaderboard2.html');
 			}
 			else{
