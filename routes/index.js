@@ -226,7 +226,7 @@ router.post('/store-temp',function(req,res, next){
 	else
 		temp.save();
 	})
-	return res.redirect('http://www.puppy.dinkevents2.com/leaderboard.html');
+	return res.redirect('http://www.runpuppyrun.sg/game/leaderboard2.html');
 	
 })
 router.post('/store-temp-int',function(req,res, next){
@@ -239,7 +239,7 @@ router.post('/store-temp-int',function(req,res, next){
 	else
 		temp.save();
 	})
-	return res.redirect('http://www.puppy.dinkevents2.com/leaderboard.html');
+	return res.redirect('http://www.runpuppyrun.sg/game/leaderboard2.html');
 	
 })
 router.get('/get-temp', function(req, res, next){
