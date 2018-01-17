@@ -362,5 +362,13 @@ router.get('/get-data', function(req, res, next){
 
 
 })
+router.post('/searchdelete', function(req,res,next){
+	if(!req.body.playername.length)
+		res.send('null');
 
+
+	Player.find({playername: req.model.playername}).remove().exec();
+	res.send('deleted');
+
+})
 module.exports = router;
