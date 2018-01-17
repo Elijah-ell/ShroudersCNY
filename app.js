@@ -14,6 +14,8 @@ require('./model/player');
 require('./model/temp');
 require('./model/temp_int');
 require('./model/player_int');
+require('./model/player_event');
+require('./model/temp_event');
 
 var app = express();
 // cross origin middleware
