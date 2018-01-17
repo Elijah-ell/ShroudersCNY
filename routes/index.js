@@ -373,7 +373,7 @@ router.post('/searchdelete', function(req,res,next){
 })
 router.get('/findplayer', function(req,res,next){
 
-	Player.find({playername: req.body.playername}).exec(function(err,docs){res.json(docs)});
+	Player.find({playername: req.body.playername}).exec(function(err,docs){res.json({"model": docs})});
 	//res.send('deleted');
 
 })
