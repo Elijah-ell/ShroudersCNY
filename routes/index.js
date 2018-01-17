@@ -371,7 +371,7 @@ router.post('/searchdelete', function(req,res,next){
 	res.send('deleted');
 
 })
-router.get('/findplayer', function(req,res,next){
+router.post('/findplayer', function(req,res,next){
 
 	Player.find({playername: req.body.playername}).exec(function(err,docs){res.json({"model": docs})});
 	//res.send('deleted');
