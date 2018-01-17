@@ -8,6 +8,8 @@ var nodemailer = require('nodemailer');
 var Temp = mongoose.model('Temp');
 var Temp_int = mongoose.model('Temp_int');
 var Player_int = mongoose.model('Player_int');
+var Player_event = mongoose.model('Player_event');
+var Temp_event = mongoose.model('Temp_event');
 
 var transporter = nodemailer.createTransport({
     service: 'Gmail',
@@ -101,6 +103,9 @@ router.get('/getall-data', function(req, res){
 })
 router.get('/getall-data-int', function(req, res){
 	Player_int.find({}).sort({timing: 'ascending'}).limit(20).exec(function(err, docs) { res.json(docs); });
+})
+router.get('/getall-data-event', function(req, res){
+	Player_event.find({}).sort({timing: 'ascending'}).limit(20).exec(function(err, docs) { res.json(docs); });
 })
 router.get('/create-product',function(req, res){
 	var product = new Product({productName: "Orange Juice", productId: 1});
@@ -199,7 +204,7 @@ router.post('/create-player2-int', function(req,res,next){
 				// res.send("edited");
 				// Player.find({playername: req.body.playername}).remove().exec();
 				// player.save();	
-				Player.findOneAndUpdate(
+				Player_int.findOneAndUpdate(
 					{playername: req.body.playername},
 					{$set:{
 						//todo2 - update the fields to be same as parameter
@@ -222,6 +227,48 @@ router.post('/create-player2-int', function(req,res,next){
 		else{
 			player.save();
 			return res.redirect('http://www.runpuppyrun.sg/game/leaderboard2.html');
+		}
+	})
+	//player.save();
+	//res.send("success");
+	
+
+})
+router.post('/create-player2-event', function(req,res,next){
+	if(!req.body.playername.length)
+		return res.redirect('http://www.runpuppyrun.sg/mycny/leaderboard2.html');
+	if(!req.body.playeremail.length)
+		return res.redirect('http://www.runpuppyrun.sg/mycny/leaderboard2.html');
+	var player = new Player_event({playername: req.body.playername, timing: req.body.timing, playeremail: req.body.playeremail});
+	Player_event.find({playeremail: req.body.playeremail}).exec(function(err,docs){
+		if(docs.length){
+			if(docs[0].timing.localeCompare(req.body.timing) == 1){
+				// res.send("edited");
+				// Player.find({playername: req.body.playername}).remove().exec();
+				// player.save();	
+				Player_event.findOneAndUpdate(
+					{playername: req.body.playername},
+					{$set:{
+						//todo2 - update the fields to be same as parameter
+						playername: req.body.playername,
+						timing: req.body.timing,
+					}},
+					function (err, updatedModel){
+						if(err) return next(err);
+						//res.send(updatedModel);
+					}
+
+				)
+				return res.redirect('http://www.runpuppyrun.sg/mycny/leaderboard2.html');
+			}
+			else{
+				//res.send("no edit");
+				return res.redirect('http://www.runpuppyrun.sg/mycny/leaderboard2.html');
+			}
+		}	
+		else{
+			player.save();
+			return res.redirect('http://www.runpuppyrun.sg/mycny/leaderboard2.html');
 		}
 	})
 	//player.save();
@@ -255,6 +302,19 @@ router.post('/store-temp-int',function(req,res, next){
 	return res.redirect('http://www.runpuppyrun.sg/game/leaderboard2.html');
 	
 })
+router.post('/store-temp-event',function(req,res, next){
+	var temp = new Temp_event({playername: "migo-event", timing: req.body.timing, playeremail: "test@gmail.com"});
+	Temp_event.find({playername: "migo-event"}).exec(function(err,docs){
+	if(docs.length){
+		Temp_event.find({playername: "migo-event"}).remove().exec();
+		temp.save();
+	}
+	else
+		temp.save();
+	})
+	return res.redirect('http://www.runpuppyrun.sg/mycny/leaderboard2.html');
+	
+})
 router.get('/get-temp', function(req, res, next){
 	Temp.find({playername: "migo"}, function(err, temp){
 		if(err) return next(err);
@@ -267,6 +327,16 @@ router.get('/get-temp', function(req, res, next){
 })
 router.get('/get-temp-int', function(req, res, next){
 	Temp_int.find({playername: "migo-int"}, function(err, temp){
+		if(err) return next(err);
+
+		if(!temp.length)
+			res.send("null");
+		else
+			res.json(temp);
+	})
+})
+router.get('/get-temp-event', function(req, res, next){
+	Temp_event.find({playername: "migo-event"}, function(err, temp){
 		if(err) return next(err);
 
 		if(!temp.length)
