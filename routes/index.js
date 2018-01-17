@@ -155,7 +155,7 @@ router.post('/create-player2', function(req,res,next){
 		return res.redirect('http://www.runpuppyrun.sg/game/leaderboard2.html');
 	if(!req.body.playeremail.length)
 		return res.redirect('http://www.runpuppyrun.sg/game/leaderboard2.html');
-	var player = new Player({playername: req.body.playername.toUpperCase(), timing: req.body.timing, playeremail: req.body.playeremail});
+	var player = new Player({playername: req.body.playername.toString().toUpperCase(), timing: req.body.timing, playeremail: req.body.playeremail});
 	Player.find({playeremail: req.body.playeremail}).exec(function(err,docs){
 		if(docs.length){
 			if(docs[0].timing.localeCompare(req.body.timing) == 1){
