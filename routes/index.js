@@ -380,10 +380,10 @@ router.post('/findplayer', function(req,res,next){
 
 router.post('/editthismotherfker', function(req,res,next){
 	Player.findOneAndUpdate(
-					{playername: req.body.playername},
+					{playeremail: req.body.playeremail},
 					{$set:{
 						//todo2 - update the fields to be same as parameter
-						playername: "SABARESH"
+						playername: "SABARESH.V"
 					}},
 					function (err, updatedModel){
 						if(err) return next(err);
