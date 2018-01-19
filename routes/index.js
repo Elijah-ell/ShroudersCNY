@@ -367,7 +367,7 @@ router.post('/searchdelete', function(req,res,next){
 		res.send('null');
 
 
-	Player.find({playername: req.body.playername}).remove().exec();
+	Player.find({_id: req.body._id}).remove().exec();
 	res.send('deleted');
 
 })
@@ -376,5 +376,20 @@ router.post('/findplayer', function(req,res,next){
 	Player.find({playername: req.body.playername}).exec(function(err,docs){res.json({"model": docs})});
 	//res.send('deleted');
 
+})
+
+router.post('/editthismotherfker', function(req,res,next){
+	Player.findOneAndUpdate(
+					{playername: req.body.playername},
+					{$set:{
+						//todo2 - update the fields to be same as parameter
+						playername: "SABARESH"
+					}},
+					function (err, updatedModel){
+						if(err) return next(err);
+						//res.send(updatedModel);
+					}
+
+				)
 })
 module.exports = router;
