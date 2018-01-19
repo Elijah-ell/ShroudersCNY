@@ -195,7 +195,7 @@ router.post('/create-player2', function(req,res,next){
 router.post('/create-player2-int', function(req,res,next){
 	if(!req.body.playername.length)
 		return res.redirect('http://www.runpuppyrun.sg/game/leaderboard2.html');
-	if(!req.body.playeremail.length)
+	if(!req.body.playername.length)
 		return res.redirect('http://www.runpuppyrun.sg/game/leaderboard2.html');
 	var player = new Player_int({playername: req.body.playername, timing: req.body.timing, playeremail: "migo@m.com"});
 	Player_int.find({playername: req.body.playername}).exec(function(err,docs){
