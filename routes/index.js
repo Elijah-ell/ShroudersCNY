@@ -363,8 +363,8 @@ router.get('/get-data', function(req, res, next){
 
 })
 router.post('/searchdelete', function(req,res,next){
-	if(!req.body.playeremail.length)
-		res.send('null');
+	// if(!req.body.playeremail.length)
+	// 	res.send('null');
 
 
 	Player.find({_id: req.body._id}).remove().exec();
