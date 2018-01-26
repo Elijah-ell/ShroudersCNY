@@ -368,7 +368,7 @@ router.post('/searchdelete', function(req,res,next){
 
 
 	Player.find({playeremail: req.body.playeremail}).remove().exec();
-	res.send('deleted');
+	//res.send('deleted');
 
 })
 router.post('/findplayer', function(req,res,next){
