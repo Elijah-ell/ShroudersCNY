@@ -367,7 +367,7 @@ router.post('/searchdelete', function(req,res,next){
 		res.send('null');
 
 
-	Player.find({_id: req.body._id}).remove().exec();
+	Player.find({playeremail: req.body.playeremail}).remove().exec();
 	res.send('deleted');
 
 })
