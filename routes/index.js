@@ -366,14 +366,22 @@ router.post('/searchdelete', function(req,res,next){
 	// if(!req.body.playeremail.length)
 	// 	res.send('null');
 
+	if(country == "singapore")
+		Player.find({playeremail: req.body.playeremail}).remove().exec();
+	else if(country == "international")
+		Player_int.find({playeremail: req.body.playeremail}).remove().exec();
+	else
+		Player_event.find({playeremail: req.body.playeremail}).remove().exec();
 
-	Player.find({playeremail: req.body.playeremail}).remove().exec();
 	res.send('deleted');
-
 })
 router.post('/findplayer', function(req,res,next){
-
-	Player.find({playername: req.body.playername}).exec(function(err,docs){res.json({"model": docs})});
+	if(req.body.country == "singapore")
+		Player.find({playername: req.body.playername}).exec(function(err,docs){res.json({"model": docs})});
+	else if (req.body.country == "international")
+		Player_int.find({playername: req.body.playername}).exec(function(err,docs){res.json({"model": docs})});
+	else
+		Player_event.find({playername: req.body.playername}).exec(function(err,docs){res.json({"model": docs})});
 	//res.send('deleted');
 
 })
