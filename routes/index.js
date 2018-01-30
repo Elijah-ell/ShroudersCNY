@@ -373,7 +373,7 @@ router.post('/searchdelete', function(req,res,next){
 	else
 		Player_event.find({_id: req.body._id}).remove().exec();
 
-	res.send('deleted');
+	//res.send('deleted');
 })
 router.post('/findplayer', function(req,res,next){
 	if(req.body.country == "singapore")
