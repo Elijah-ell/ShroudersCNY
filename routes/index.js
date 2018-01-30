@@ -366,9 +366,9 @@ router.post('/searchdelete', function(req,res,next){
 	// if(!req.body.playeremail.length)
 	// 	res.send('null');
 
-	if(country == "singapore")
+	if(req.body.country == "singapore")
 		Player.find({playeremail: req.body.playeremail}).remove().exec();
-	else if(country == "international")
+	else if(req.body.country == "international")
 		Player_int.find({playeremail: req.body.playeremail}).remove().exec();
 	else
 		Player_event.find({playeremail: req.body.playeremail}).remove().exec();
