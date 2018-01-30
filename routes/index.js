@@ -389,7 +389,7 @@ router.post('/findplayer', function(req,res,next){
 router.post('/editthismofo', function(req,res,next){
 	if(req.body.country == "singapore"){
 		Player.findOneAndUpdate(
-						{_id: req.body.id},
+						{_id: req.body._id},
 						{$set:{
 							//todo2 - update the fields to be same as parameter
 							playername: req.body.playername
@@ -402,7 +402,7 @@ router.post('/editthismofo', function(req,res,next){
 	}
 	else if(req.body.country == "international"){
 		Player_int.findOneAndUpdate(
-						{_id: req.body.id},
+						{_id: req.body._id},
 						{$set:{
 							//todo2 - update the fields to be same as parameter
 							playername: req.body.playername
@@ -415,7 +415,7 @@ router.post('/editthismofo', function(req,res,next){
 	}
 	else {
 		Player_event.findOneAndUpdate(
-						{_id: req.body.id},
+						{_id: req.body._id},
 						{$set:{
 							//todo2 - update the fields to be same as parameter
 							playername: req.body.playername
