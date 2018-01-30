@@ -413,7 +413,7 @@ router.post('/editthismofo', function(req,res,next){
 						}
 					);
 	}
-	else{
+	else if(req.body.country == "event"){
 		Player_event.findOneAndUpdate(
 						{_id: req.body.id},
 						{$set:{
