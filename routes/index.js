@@ -398,7 +398,7 @@ router.post('/editthismofo', function(req,res,next){
 							if(err) return next(err);
 							//res.send(updatedModel);
 						}
-					);
+					)
 	}
 	else if(req.body.country == "international"){
 		Player_int.findOneAndUpdate(
@@ -411,9 +411,9 @@ router.post('/editthismofo', function(req,res,next){
 							if(err) return next(err);
 							//res.send(updatedModel);
 						}
-					);
+					)
 	}
-	else if(req.body.country == "event"){
+	else {
 		Player_event.findOneAndUpdate(
 						{_id: req.body.id},
 						{$set:{
@@ -424,7 +424,7 @@ router.post('/editthismofo', function(req,res,next){
 							if(err) return next(err);
 							//res.send(updatedModel);
 						}
-					);
+					)
 	}
 })
 module.exports = router;
