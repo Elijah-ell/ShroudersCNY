@@ -115,6 +115,20 @@ router.get('/create-product',function(req, res){
 	})
 
 })
+router.post('/display-data', function(req, res){
+
+	// User.find (function (err, model){
+	// 	if(err) return next(err);
+	// 	res.send({"model": model});
+	// })
+	//Player.find({}).sort({timing: 'ascending'}).limit(5).exec(function(err, docs) { res.json({"model": docs}); });
+	if(req.body.country == "singapore")
+		Player.find({}).sort({timing: 'ascending'}).limit(20).exec(function(err, docs) { res.json({"model": docs})});
+	else if(req.body.country == "international")
+		Player_int.find({}).sort({timing: 'ascending'}).limit(20).exec(function(err, docs) { res.json({"model": docs})});
+	else
+		Player_event.find({}).sort({timing: 'ascending'}).limit(20).exec(function(err, docs) { res.json({"model": docs})});
+})
 router.get('/create-product2',function(req, res,next){
 	var empty = false;
 	var product = new Product({productName: "Mongo Juice", productId: 1});
