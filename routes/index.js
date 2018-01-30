@@ -197,7 +197,7 @@ router.post('/create-player2-int', function(req,res,next){
 		return res.redirect('http://www.runpuppyrun.sg/game/leaderboard2.html');
 	if(!req.body.playername.length)
 		return res.redirect('http://www.runpuppyrun.sg/game/leaderboard2.html');
-	var player = new Player_int({playername: req.body.playername, timing: req.body.timing, playeremail: "migo@m.com"});
+	var player = new Player_int({playername: req.body.playername.toString().toUpperCase(), timing: req.body.timing, playeremail: "migo@m.com"});
 	Player_int.find({playername: req.body.playername}).exec(function(err,docs){
 		if(docs.length){
 			if(docs[0].timing.localeCompare(req.body.timing) == 1){
@@ -239,7 +239,7 @@ router.post('/create-player2-event', function(req,res,next){
 		return res.redirect('http://www.runpuppyrun.sg/mycny/leaderboard2.html');
 	if(!req.body.playername.length)
 		return res.redirect('http://www.runpuppyrun.sg/mycny/leaderboard2.html');
-	var player = new Player_event({playername: req.body.playername, timing: req.body.timing, playeremail: "migo@m.com"});
+	var player = new Player_event({playername: req.body.playername.toString().toUpperCase(), timing: req.body.timing, playeremail: "migo@m.com"});
 	Player_event.find({playername: req.body.playername}).exec(function(err,docs){
 		if(docs.length){
 			if(docs[0].timing.localeCompare(req.body.timing) == 1){
@@ -386,12 +386,12 @@ router.post('/findplayer', function(req,res,next){
 
 })
 
-router.post('/editthismotherfker', function(req,res,next){
+router.post('/editthismofo', function(req,res,next){
 	Player.findOneAndUpdate(
 					{playeremail: req.body.playeremail},
 					{$set:{
 						//todo2 - update the fields to be same as parameter
-						playername: "SABARESH.V"
+						playername: req.body.playername
 					}},
 					function (err, updatedModel){
 						if(err) return next(err);
