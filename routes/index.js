@@ -388,7 +388,7 @@ router.post('/findplayer', function(req,res,next){
 
 router.post('/editthismofo', function(req,res,next){
 	Player.findOneAndUpdate(
-					{playeremail: req.body.playeremail},
+					{_id: req.body.id},
 					{$set:{
 						//todo2 - update the fields to be same as parameter
 						playername: req.body.playername
